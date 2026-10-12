@@ -38,6 +38,15 @@ from nlp.analytics import calculate_skill_associations
 # Ensure database tables exist
 init_db()
 
+# Auto-seed sample intelligence dataset on fresh cloud deployment if database is empty
+try:
+    with get_session() as _check_sess:
+        if _check_sess.query(Job).count() == 0:
+            from scripts.seed_data import seed_database
+            seed_database()
+except Exception:
+    pass
+
 # -----------------------------------------------------------------------------
 # PAGE CONFIGURATION & STYLING
 # -----------------------------------------------------------------------------

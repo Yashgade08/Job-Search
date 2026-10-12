@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Streamlit Interactive Analytics Dashboard
+  dashboard:
+    build: .
+    container_name: job_market_dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_HOST=api
+      - API_PORT=8000
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/job_market_db
+      - DATABASE_FALLBACK_SQLITE=True
+    depends_on:
+      - db
+    volumes:
+      - data_volume:/app/data
+
+  # FastAPI Backend Service
+  api:
+    build: .
+    container_name: job_market_api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/job_market_db
+      - DATABASE_FALLBACK_SQLITE=True
+    depends_on:
+      - db
+    volumes:
+      - data_volume:/app/data
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: job_market_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: job_market_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  data_volume:
