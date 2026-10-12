@@ -8,115 +8,120 @@ from datetime import datetime, timedelta
 from crawler.adapters.base_adapter import BaseCrawlerAdapter
 from crawler.frontier import CrawlFrontier
 
-# Realistic synthetic job dataset designed to test extraction of all 7 skill categories
+# Realistic synthetic job dataset designed to test extraction of India tech roles:
+# VLSI Engineers, Consultants, and SDE/SWE
 MOCK_DATABASE = [
     {
         "page": 1,
-        "title": "Senior Backend Engineer (Python & Cloud)",
-        "company": "Nexus Technologies",
+        "title": "Senior VLSI Physical Design Engineer",
+        "company": "Qualcomm India",
         "location": "Bengaluru, India",
         "is_remote": False,
-        "salary_min": 140000,
-        "salary_max": 180000,
+        "salary_min": 2400000,
+        "salary_max": 3800000,
         "desc": """
-        We are seeking a Senior Backend Engineer to build scalable microservices.
+        Qualcomm India is hiring a Senior VLSI Physical Design Engineer for cutting-edge mobile 4nm SoCs.
         Requirements:
-        - 5+ years of software engineering experience with Python and FastAPI or Django.
-        - Deep hands-on expertise with PostgreSQL, Redis, and Kafka event streaming.
-        - Experience with Docker, Kubernetes, and AWS (EC2, S3, RDS).
-        - Strong foundation in System Design, Microservices, and REST APIs.
+        - 4+ years of hands-on experience in VLSI Physical Design, P&R, and floorplanning.
+        - Expertise in Static Timing Analysis (STA), Primetime, and timing closure.
+        - Proficiency in Cadence Tools (Innovus) or Synopsys Tools (ICC2, Fusion Compiler).
+        - Solid knowledge of CMOS, FinFET technology, and Low Power Design.
+        - Scripting skills in Python or TCL.
         - Excellent Problem Solving and Team Collaboration.
         Nice to have:
-        - Exposure to Go, Terraform, and GraphQL.
+        - Exposure to SystemVerilog, Verilog, and RTL synthesis.
         """
     },
     {
         "page": 1,
-        "title": "Full Stack Developer (React & Node.js)",
-        "company": "Orbit Labs",
-        "location": "San Francisco, CA",
-        "is_remote": True,
-        "salary_min": 130000,
-        "salary_max": 170000,
-        "desc": """
-        Orbit Labs is building the next generation collaborative platform.
-        Qualifications:
-        - Proficient in TypeScript, JavaScript, React, and Next.js.
-        - Backend experience with Node.js, Express, and PostgreSQL.
-        - Experience with Tailwind CSS, HTML5, and CSS3.
-        - CI/CD automation with GitHub Actions.
-        - Strong communication and ownership.
-        Bonus points:
-        - Experience with Python, Docker, and AWS.
-        """
-    },
-    {
-        "page": 1,
-        "title": "Staff Machine Learning Engineer (LLMs & RAG)",
-        "company": "Cognitive AI",
-        "location": "New York, NY",
-        "is_remote": True,
-        "salary_min": 190000,
-        "salary_max": 250000,
-        "desc": """
-        Lead our Generative AI infrastructure and production RAG pipelines.
-        Requirements:
-        - 7+ years of experience with Python, PyTorch, and Machine Learning.
-        - Deep expertise in LLMs, LangChain, Hugging Face, and Vector Databases (Pinecone, ChromaDB).
-        - Familiarity with NLP, Deep Learning, and model fine-tuning.
-        - Deployment with Docker, Kubernetes, and AWS or GCP.
-        - High degree of mentorship and technical leadership.
-        """
-    },
-    {
-        "page": 2,
-        "title": "DevOps & Site Reliability Engineer (SRE)",
-        "company": "CloudScale Systems",
-        "location": "Berlin, Germany",
-        "is_remote": True,
-        "salary_min": 95000,
-        "salary_max": 130000,
-        "desc": """
-        Manage cloud infrastructure and 99.99% uptime across multi-region clusters.
-        Requirements:
-        - Extensive experience with Kubernetes, Docker, and Linux administration.
-        - Infrastructure as Code using Terraform and Ansible.
-        - CI/CD with GitLab CI or Jenkins.
-        - Observability with Prometheus, Grafana, and OpenTelemetry.
-        - Scripting proficiency in Bash, Python, or Go.
-        - Agile sprint workflow and cross-functional collaboration.
-        """
-    },
-    {
-        "page": 2,
-        "title": "Data Engineer (Spark & Airflow)",
-        "company": "Metrix Data Corp",
-        "location": "London, UK",
+        "title": "Senior Technology Consultant - Digital & Cloud",
+        "company": "Deloitte India",
+        "location": "Hyderabad, India",
         "is_remote": False,
-        "salary_min": 85000,
-        "salary_max": 120000,
+        "salary_min": 1800000,
+        "salary_max": 3200000,
         "desc": """
-        Build high-throughput ETL data pipelines.
+        Join Deloitte's Technology Advisory practice as a Senior Consultant.
+        Qualifications:
+        - 5+ years of experience in Technology Consulting, IT Strategy, and Digital Transformation.
+        - Strong background in Solution Architecture and enterprise cloud migration on AWS or Azure.
+        - Experience in Business Analysis, BRD documentation, and requirement gathering.
+        - Familiarity with ERP & SAP systems, Microservices, and API integration.
+        - Exceptional Stakeholder Management, Client Advisory, and presentation skills.
+        Bonus points:
+        - Agile / Scrum certification and Financial Modeling experience.
+        """
+    },
+    {
+        "page": 1,
+        "title": "Software Development Engineer II (SDE 2)",
+        "company": "Amazon India",
+        "location": "Bengaluru, India",
+        "is_remote": False,
+        "salary_min": 2800000,
+        "salary_max": 4600000,
+        "desc": """
+        Amazon Prime Video team in Bengaluru is seeking an SDE 2 to build high-scale distributed systems.
         Requirements:
-        - 4+ years of data engineering using Python and SQL.
-        - Hands-on experience with Apache Spark, Airflow, and Snowflake or BigQuery.
-        - Familiarity with Kafka, PostgreSQL, and AWS S3 data lakes.
-        - Data modeling and unit testing with pytest.
+        - 3+ years of experience as an SDE or Software Engineer in Java, Go, or C++.
+        - Mastery of Data Structures & Algorithms (DSA), System Design, and Object-Oriented Design.
+        - Hands-on experience building scalable Microservices, REST APIs, and event-driven architectures with Kafka.
+        - Experience with AWS (EC2, S3, DynamoDB), Docker, and Redis caching.
+        - Unit Testing with pytest or JUnit, and CI/CD automation with GitHub Actions.
+        - Strong Ownership and customer obsession.
+        """
+    },
+    {
+        "page": 2,
+        "title": "Staff ASIC Verification Engineer (UVM & SystemVerilog)",
+        "company": "Intel India",
+        "location": "Bengaluru, India",
+        "is_remote": False,
+        "salary_min": 3200000,
+        "salary_max": 5200000,
+        "desc": """
+        Lead silicon pre-silicon verification for high-performance server processors.
+        Requirements:
+        - 6+ years of pre-silicon verification using SystemVerilog and UVM methodology.
+        - Deep expertise in RTL Design, Computer Architecture, and PCIe / AXI bus protocols.
+        - Experience with ModelSim / Questa, VCS, and coverage-driven verification.
+        - Scripting in Python and Bash for automated regressions.
+        - Leadership, technical mentorship, and cross-functional collaboration.
+        Nice to have:
+        - Formal verification and DFT knowledge.
+        """
+    },
+    {
+        "page": 2,
+        "title": "Associate Management Consultant - Tech Strategy",
+        "company": "McKinsey & Company",
+        "location": "Gurgaon, India",
+        "is_remote": False,
+        "salary_min": 2500000,
+        "salary_max": 4200000,
+        "desc": """
+        Shape CXO agendas and digital transformation strategies across India and APAC.
+        Requirements:
+        - 3+ years of experience in Management Consulting, Strategic Advisory, or Tech Consulting.
+        - Strong capabilities in Business Analysis, Market Intelligence, and Financial Modeling.
+        - Client Advisory, executive presentation, and cross-functional alignment.
+        - Structured Problem Solving and analytical frameworks.
+        - Degree in Engineering or MBA from a premier institution.
         """
     },
     {
         "page": 2,
         # INTENTIONAL DUPLICATE to test Deduplication Engine!
-        "title": "Senior Backend Engineer (Python & Cloud)",
-        "company": "Nexus Technologies",
+        "title": "Senior VLSI Physical Design Engineer",
+        "company": "Qualcomm India",
         "location": "Bengaluru, India",
         "is_remote": False,
-        "salary_min": 140000,
-        "salary_max": 180000,
+        "salary_min": 2400000,
+        "salary_max": 3800000,
         "desc": """
-        We are seeking a Senior Backend Engineer to build scalable microservices.
+        Qualcomm India is hiring a Senior VLSI Physical Design Engineer for cutting-edge mobile 4nm SoCs.
         Requirements:
-        - 5+ years of software engineering experience with Python and FastAPI or Django.
+        - 4+ years of hands-on experience in VLSI Physical Design, P&R, and floorplanning.
         """
     },
 ]

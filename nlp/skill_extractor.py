@@ -26,6 +26,11 @@ SALARY_REGEX = re.compile(
     re.I
 )
 
+LPA_REGEX = re.compile(
+    r"(?:(?:₹|INR|Rs\.?)\s*)?(\d{1,2}(?:\.\d+)?)\s*(?:-|to)\s*(?:(?:₹|INR|Rs\.?)\s*)?(\d{1,2}(?:\.\d+)?)\s*(?:lpa|lakhs?|lacs?|lac|l)\b",
+    re.I
+)
+
 
 class SkillExtractor:
     def __init__(self):
@@ -199,8 +204,21 @@ class SkillExtractor:
     def extract_salary_fallback(self, text: str) -> Tuple[Optional[float], Optional[float], Optional[str]]:
         """
         Attempts to extract salary numbers from text if not present in metadata.
+        Supports both standard currencies and Indian LPA / Lakhs notations.
         Returns: (min_salary, max_salary, currency)
         """
+        # 1. Check Indian LPA / Lakhs pattern (e.g. 15 - 30 LPA, 18-25 Lakhs)
+        lpa_match = LPA_REGEX.search(text)
+        if lpa_match:
+            try:
+                g1, g2 = lpa_match.groups()
+                min_lpa = float(g1) * 100000.0
+                max_lpa = float(g2) * 100000.0
+                return min(min_lpa, max_lpa), max(min_lpa, max_lpa), "INR"
+            except Exception:
+                pass
+
+        # 2. Check standard currency ranges
         match = SALARY_REGEX.search(text)
         if not match:
             return None, None, None

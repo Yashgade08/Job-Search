@@ -10,6 +10,14 @@ from typing import Dict, Any, Tuple, Optional
 # Canonical Role Categories and Matching Patterns
 ROLE_PATTERNS = [
     (
+        "VLSI / Semiconductor Engineer",
+        re.compile(r"\b(?:vlsi|asic|fpga|rtl\s+design|physical\s+design|verification\s+engineer|silicon\s+engineer|chip\s+design|semiconductor|soc\s+design|sta\s+engineer|uvm\s+engineer|hardware\s+engineer)\b", re.I)
+    ),
+    (
+        "Consultant / Advisory",
+        re.compile(r"\b(?:consultant|technology\s+consultant|it\s+consultant|strategy\s+consultant|management\s+consultant|advisory\s+consultant|solution\s+consultant|sap\s+consultant|associate\s+consultant|principal\s+consultant|business\s+consultant)\b", re.I)
+    ),
+    (
         "Machine Learning Engineer",
         re.compile(r"\b(?:machine\s+learning|ml\s+engineer|mle|deep\s+learning\s+engineer|nlp\s+engineer|computer\s+vision\s+engineer|ai\s+engineer|generative\s+ai\s+engineer)\b", re.I)
     ),
@@ -38,8 +46,12 @@ ROLE_PATTERNS = [
         re.compile(r"\b(?:back[\s-]?end|python\s+developer|java\s+developer|golang\s+developer|node(?:\.js)?\s+developer|\.net\s+developer|c\+\+\s+developer|django\s+developer|spring\s+developer)\b", re.I)
     ),
     (
+        "Software Development Engineer (SDE / SWE)",
+        re.compile(r"\b(?:sde[\s-]?[123i]{1,3}|sde|swe|software\s+development\s+engineer|software\s+engineer|software\s+developer|core\s+software\s+engineer|swe[\s-]?[123i]{1,3})\b", re.I)
+    ),
+    (
         "Full Stack Developer",
-        re.compile(r"\b(?:full[\s-]?stack|fullstack|software\s+engineer|software\s+developer|application\s+developer|programmer|swe)\b", re.I)
+        re.compile(r"\b(?:full[\s-]?stack|fullstack|application\s+developer|programmer)\b", re.I)
     ),
     (
         "Mobile Developer",
@@ -66,9 +78,9 @@ ROLE_PATTERNS = [
 # Seniority Level Patterns
 SENIORITY_PATTERNS = [
     ("Executive", re.compile(r"\b(?:vp|vice\s+president|director|head\s+of|chief|cxo|cto|cpo)\b", re.I)),
-    ("Lead / Staff", re.compile(r"\b(?:lead|staff|principal|distinguished|architect|tech\s+lead)\b", re.I)),
-    ("Senior", re.compile(r"\b(?:senior|sr\.?|sr|ii|iii|advanced)\b", re.I)),
-    ("Entry-Level", re.compile(r"\b(?:junior|jr\.?|jr|entry|associate|trainee|intern|internship|graduate)\b", re.I)),
+    ("Lead / Staff", re.compile(r"\b(?:lead|staff|principal|distinguished|architect|tech\s+lead|sde[\s-]?3|sde\s+iii|principal\s+consultant)\b", re.I)),
+    ("Senior", re.compile(r"\b(?:senior|sr\.?|sr|iii|advanced|senior\s+consultant)\b", re.I)),
+    ("Entry-Level", re.compile(r"\b(?:junior|jr\.?|jr|entry|associate|trainee|intern|internship|graduate|sde[\s-]?1|sde\s+i|associate\s+consultant)\b", re.I)),
 ]
 
 EXPERIENCE_YEARS_REGEX = re.compile(

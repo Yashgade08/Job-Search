@@ -76,6 +76,56 @@ class JobProcessingPipeline:
         # NLP Skill Extraction
         extracted_skills = skill_extractor.extract_skills_from_text(cleaned_desc, title=job_title)
 
+        # Indian Geography & Location Normalization
+        city = item.get("city")
+        state = item.get("state")
+        country = item.get("country")
+        is_remote = bool(item.get("is_remote", False))
+
+        indian_cities_map = {
+            "bengaluru": ("Bengaluru", "Karnataka"),
+            "bangalore": ("Bengaluru", "Karnataka"),
+            "hyderabad": ("Hyderabad", "Telangana"),
+            "pune": ("Pune", "Maharashtra"),
+            "mumbai": ("Mumbai", "Maharashtra"),
+            "gurgaon": ("Gurgaon", "Haryana"),
+            "gurugram": ("Gurgaon", "Haryana"),
+            "noida": ("Noida", "Uttar Pradesh"),
+            "delhi": ("Delhi NCR", "Delhi"),
+            "delhi ncr": ("Delhi NCR", "Delhi"),
+            "new delhi": ("Delhi NCR", "Delhi"),
+            "chennai": ("Chennai", "Tamil Nadu"),
+            "kolkata": ("Kolkata", "West Bengal"),
+            "ahmedabad": ("Ahmedabad", "Gujarat"),
+            "coimbatore": ("Coimbatore", "Tamil Nadu"),
+            "kochi": ("Kochi", "Kerala"),
+            "cochin": ("Kochi", "Kerala"),
+            "indore": ("Indore", "Madhya Pradesh"),
+            "jaipur": ("Jaipur", "Rajasthan"),
+            "chandigarh": ("Chandigarh", "Punjab"),
+        }
+
+        loc_lower = (location_raw or "").lower()
+        if "remote" in loc_lower:
+            is_remote = True
+
+        for k, (c_name, s_name) in indian_cities_map.items():
+            if k in loc_lower:
+                if not city:
+                    city = c_name
+                if not state:
+                    state = s_name
+                country = "India"
+                break
+
+        if "india" in loc_lower:
+            country = "India"
+            if not city and is_remote:
+                city = "Remote (India)"
+
+        if country == "India" and sal_curr == "USD" and not item.get("salary_currency"):
+            sal_curr = "INR"
+
         # Build clean job dictionary
         cleaned_job_record = {
             "fingerprint": fingerprint,
@@ -84,10 +134,10 @@ class JobProcessingPipeline:
             "location_raw": location_raw,
             "normalized_title": norm_title,
             "role_category": role_cat,
-            "city": item.get("city"),
-            "state": item.get("state"),
-            "country": item.get("country"),
-            "is_remote": bool(item.get("is_remote", False)),
+            "city": city,
+            "state": state,
+            "country": country,
+            "is_remote": is_remote,
             "salary_min": sal_min,
             "salary_max": sal_max,
             "salary_currency": sal_curr,

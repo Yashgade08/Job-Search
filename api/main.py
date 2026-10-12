@@ -19,6 +19,16 @@ from config.settings import settings
 async def lifespan(app: FastAPI):
     # Startup: Ensure database tables are created
     init_db()
+    # Auto-seed sample intelligence dataset on fresh cloud deployment if database is empty
+    try:
+        from database.connection import get_session
+        from database.models import Job
+        with get_session() as _check_sess:
+            if _check_sess.query(Job).count() == 0:
+                from scripts.seed_data import seed_database
+                seed_database()
+    except Exception:
+        pass
     yield
     # Shutdown logic (if any)
 

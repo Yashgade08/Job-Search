@@ -27,6 +27,20 @@ def get_engine():
 
     target_url = settings.database_url
 
+    # Check for Streamlit secrets if running in Streamlit Cloud
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets") and "DATABASE_URL" in st.secrets:
+            target_url = str(st.secrets["DATABASE_URL"])
+    except Exception:
+        pass
+
+    # Normalize PostgreSQL URL for SQLAlchemy compatibility (Render, Neon, Supabase, Railway)
+    if target_url.startswith("postgres://"):
+        target_url = target_url.replace("postgres://", "postgresql+psycopg2://", 1)
+    elif target_url.startswith("postgresql://") and not target_url.startswith("postgresql+psycopg2://"):
+        target_url = target_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+
     # Check if target is postgres
     if target_url.startswith("postgresql"):
         try:

@@ -38,6 +38,9 @@ SKILL_TAXONOMY: List[Dict[str, Any]] = [
     {"name": "C", "category": "Languages", "is_tech": True, "aliases": ["c language", "ansi c"], "regex": r"(?:\bc\s+(?:language|programming|developer)\b|\bansi\s+c\b)"},
     {"name": "Solidity", "category": "Languages", "is_tech": True, "aliases": ["smart contracts"]},
     {"name": "Dart", "category": "Languages", "is_tech": True, "aliases": ["dart/flutter"]},
+    {"name": "Verilog", "category": "Languages", "is_tech": True, "aliases": ["verilog-hdl", "verilog hdl"]},
+    {"name": "SystemVerilog", "category": "Languages", "is_tech": True, "aliases": ["sv", "systemverilog", "system-verilog"]},
+    {"name": "VHDL", "category": "Languages", "is_tech": True, "aliases": ["vhdl-ams"]},
 
     # =========================================================================
     # 2. FRAMEWORKS & LIBRARIES
@@ -134,9 +137,42 @@ SKILL_TAXONOMY: List[Dict[str, Any]] = [
     {"name": "Postman", "category": "Tools", "is_tech": True, "aliases": ["api testing", "swagger", "openapi"]},
     {"name": "Unit Testing", "category": "Tools", "is_tech": True, "aliases": ["pytest", "jest", "junit", "tdd", "mocking"]},
     {"name": "Agile", "category": "Tools", "is_tech": False, "aliases": ["scrum", "kanban", "sprint planning"]},
+    {"name": "Data Structures & Algorithms", "category": "Tools", "is_tech": True, "aliases": ["dsa", "data structures", "algorithms", "leetcode"]},
+    {"name": "Object-Oriented Design", "category": "Tools", "is_tech": True, "aliases": ["ood", "oop", "solid principles", "design patterns"]},
+    {"name": "Low-Level Design", "category": "Tools", "is_tech": True, "aliases": ["lld", "detailed class design"]},
+    {"name": "High-Level Design", "category": "Tools", "is_tech": True, "aliases": ["hld", "distributed system architecture"]},
+    {"name": "Multithreading & Concurrency", "category": "Tools", "is_tech": True, "aliases": ["multithreading", "concurrency", "thread safety", "async programming"]},
 
     # =========================================================================
-    # 7. SOFT SKILLS & LEADERSHIP
+    # 7. VLSI & HARDWARE DESIGN
+    # =========================================================================
+    {"name": "RTL Design", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["rtl", "register transfer level", "rtl coding"]},
+    {"name": "UVM", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["universal verification methodology", "uvm testbench", "ovm"]},
+    {"name": "Physical Design", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["pd", "place and route", "p&r", "floorplanning", "physical verification"]},
+    {"name": "Static Timing Analysis", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["sta", "timing closure", "primetime", "tempus"]},
+    {"name": "ASIC Design", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["asic", "soc design", "application specific integrated circuit"]},
+    {"name": "FPGA", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["xilinx", "altera", "vivado", "quartus", "fpga design"]},
+    {"name": "DFT", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["design for testability", "scan insertion", "atpg", "mbist", "bist"]},
+    {"name": "Synopsys Tools", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["synopsys", "design compiler", "icc2", "fusion compiler", "primetime"]},
+    {"name": "Cadence Tools", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["cadence", "innovus", "virtuoso", "genus", "spectre"]},
+    {"name": "CMOS & Semiconductor", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["vlsi", "cmos", "semiconductor", "finfet", "5nm", "7nm", "silicon design"]},
+    {"name": "ModelSim / Questa", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["modelsim", "questasim", "vcs", "ncsim"]},
+    {"name": "Computer Architecture", "category": "VLSI/Hardware", "is_tech": True, "aliases": ["risc-v", "arm architecture", "cache hierarchy", "axi", "ahb bus"]},
+
+    # =========================================================================
+    # 8. CONSULTING & BUSINESS STRATEGY
+    # =========================================================================
+    {"name": "Technology Consulting", "category": "Consulting", "is_tech": False, "aliases": ["it consulting", "tech advisory", "digital consulting", "tech strategy"]},
+    {"name": "Management Consulting", "category": "Consulting", "is_tech": False, "aliases": ["strategy consulting", "business consulting", "strategic advisory"]},
+    {"name": "Business Analysis", "category": "Consulting", "is_tech": False, "aliases": ["business requirements", "brd", "functional requirements", "requirement analysis"]},
+    {"name": "ERP & SAP", "category": "Consulting", "is_tech": True, "aliases": ["sap", "sap s/4hana", "sap ecc", "enterprise resource planning", "sap abap", "sap fico", "oracle erp"]},
+    {"name": "Solution Architecture", "category": "Consulting", "is_tech": True, "aliases": ["solution design", "technical architecture", "enterprise solutions"]},
+    {"name": "Digital Transformation", "category": "Consulting", "is_tech": False, "aliases": ["process reengineering", "transformation roadmap", "operating model"]},
+    {"name": "Client Advisory & Delivery", "category": "Consulting", "is_tech": False, "aliases": ["client engagement", "executive presentations", "stakeholder engagement", "c-level advisory"]},
+    {"name": "Financial Modeling", "category": "Consulting", "is_tech": False, "aliases": ["cost-benefit analysis", "business case development", "roi analysis"]},
+
+    # =========================================================================
+    # 9. SOFT SKILLS & LEADERSHIP
     # =========================================================================
     {"name": "Communication", "category": "Soft Skills", "is_tech": False, "aliases": ["verbal communication", "written communication", "presentation skills"]},
     {"name": "Problem Solving", "category": "Soft Skills", "is_tech": False, "aliases": ["troubleshooting", "analytical thinking", "critical thinking"]},

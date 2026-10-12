@@ -1,0 +1,38 @@
+services:
+  # 1. FastAPI REST Backend Service
+  - type: web
+    name: job-market-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: job-market-db
+          property: connectionString
+      - key: DATABASE_FALLBACK_SQLITE
+        value: "true"
+
+  # 2. Streamlit Analytics & Intelligence Dashboard
+  - type: web
+    name: job-market-dashboard
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: job-market-db
+          property: connectionString
+      - key: DATABASE_FALLBACK_SQLITE
+        value: "true"
+
+databases:
+  # Managed PostgreSQL Database
+  - name: job-market-db
+    databaseName: job_market_db
+    user: job_market_user
+    plan: free
